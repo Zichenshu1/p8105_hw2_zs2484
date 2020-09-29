@@ -122,6 +122,15 @@ train_A_ada =
 
 There are **`r nrow(train_A)`** distinct stations serves the A train. Of the stations that serve the A train, **`r nrow(train_A_ada)`** are ADA compliant.
 
+## Problem 3
+
+```{r}
+pols_df = 
+  read_csv("./data/fivethirtyeight_datasets/pols-month.csv") %>% 
+  janitor::clean_names()
+
+```
+
 
 
 
