@@ -76,6 +76,7 @@ The total precipitation in 2018 was `r precip_df %>% filter(year == 2018) %>% pu
 
 
 
+## Problem 2
 
 
 
