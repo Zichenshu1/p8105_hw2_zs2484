@@ -93,13 +93,16 @@ The dataset contains these **`r names(subway_df)`** variables. It consists of **
 ```{r}
 distinct_station = distinct(subway_df, station_name)
 
-number_ada = nrow(subway_df[subway_df$ada == "TRUE",])
+ada_compliance = filter(subway_df, ada == TRUE)
 
+entry = select(subway_df, entry)
+entry_novending = filter(entry, entry == FALSE)
 
 ```
 
 There are distinct **`r nrow(distinct_station)`** stations.
-There are 
+There are **`r nrow(ada_compliance)`** stations with ada compliance.
+The proportion of station entrances without vending allow entrance is **`r nrow(entry_novending)/nrow(entry)`**
 
 
 
