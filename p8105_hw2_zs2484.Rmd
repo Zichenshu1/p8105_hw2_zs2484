@@ -98,7 +98,8 @@ number_ada = nrow(subway_df[subway_df$ada == "TRUE",])
 
 ```
 
-
+There are distinct **`r nrow(distinct_station)`** stations.
+There are 
 
 
 
