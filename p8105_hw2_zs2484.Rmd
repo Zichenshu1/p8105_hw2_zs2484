@@ -78,7 +78,16 @@ The total precipitation in 2018 was `r precip_df %>% filter(year == 2018) %>% pu
 
 ## Problem 2
 
+```{r, warning = FALSE, message = FALSE}
+subway_df = 
+  read_csv("./data/NYC_Transit_Subway_Entrance_And_Exit_Data.csv") %>% 
+  janitor::clean_names() %>% 
+  select(line, station_name, route1:route11, station_latitude, station_longitude, entry, vending, entrance_type, ada) %>% 
+  mutate(entry = recode(entry, "YES" = "TRUE", "NO" = "FALSE"), entry = as.logical(entry))
 
+```
+
+The dataset contains these **`r names(subway_df)`** variables. It consists of **`r nrow(subway_df)`** rows and **`r ncol(subway_df)`** columns. Some of the cleaning steps I have done so far are converting all variable names to lower case and replace the space to underscore, select the required variables and change the "entry" varibale to a logical variable.
 
 
 
