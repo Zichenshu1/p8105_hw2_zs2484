@@ -124,15 +124,33 @@ There are **`r nrow(train_A)`** distinct stations serves the A train. Of the sta
 
 ## Problem 3
 
-```{r}
+```{r, warning = FALSE, message = FALSE}
 pols_df = 
   read_csv("./data/fivethirtyeight_datasets/pols-month.csv") %>% 
-  janitor::clean_names()
-
+  janitor::clean_names() %>% 
+  separate(mon, c("year", "month", "day")) %>% 
+  mutate(month = as.double(month), month = month.name[month]) %>% 
+  mutate(president = case_when(prez_gop == "1" ~ "gop", prez_dem == "1" ~ "dem")) %>% 
+  select(-prez_dem, -prez_gop, -day)
 ```
 
 
+```{r, warning = FALSE, message = FALSE}
+snp_df =
+  read_csv("./data/fivethirtyeight_datasets/snp.csv") %>% 
+  janitor::clean_names() %>%
+  separate(date, c("month", "day", "year")) %>%
+  mutate(month = as.double(month), month = month.name[month]) %>% 
+  relocate(year, month, day)
+```
 
+```{r, warning = FALSE, message = FALSE}
+unemployment_df =
+  read_csv("./data/fivethirtyeight_datasets/unemployment.csv") 
+  
+
+
+```
 
 
 
