@@ -7,7 +7,6 @@ output: github_document
 ```{r, message = FALSE}
 library(tidyverse)
 library(readxl)
-library(dplyr)
 ```
 
 ## Problem 1
@@ -84,11 +83,11 @@ subway_df =
   read_csv("./data/NYC_Transit_Subway_Entrance_And_Exit_Data.csv") %>% 
   janitor::clean_names() %>% 
   select(line, station_name, route1:route11, station_latitude, station_longitude, entry, vending, entrance_type, ada) %>% 
-  mutate(entry = recode(entry, "YES" = "TRUE", "NO" = "FALSE"), entry = as.logical(entry))
+  mutate(entry = recode(entry, "YES" = "TRUE", "NO" = "FALSE"), entry = as.logical(entry), route8 = as.character(route8), route9 = as.character(route9), route10 = as.character(route10), route11 = as.character(route11))
 
 ```
 
-The dataset contains these **`r names(subway_df)`** variables. It consists of **`r nrow(subway_df)`** rows and **`r ncol(subway_df)`** columns. Some of the cleaning steps I have done so far are converting all variable names to lower case and replace the space to underscore, select the required variables and change the "entry" variable to a logical variable.
+The dataset contains these **`r names(subway_df)`** variables. It consists of **`r nrow(subway_df)`** rows and **`r ncol(subway_df)`** columns. Some of the cleaning steps I have done so far are converting all variable names to lower case and replace the space with underscore, select the required variables and change the "entry" variable to a logical variable.
 
 ```{r}
 distinct_station = distinct(subway_df, station_name)
@@ -104,6 +103,24 @@ There are distinct **`r nrow(distinct_station)`** stations.
 There are **`r nrow(ada_compliance)`** stations with ada compliance.
 The proportion of station entrances without vending allow entrance is **`r nrow(entry_novending)/nrow(entry)`**
 
+##### Reformat the route number and route name
+
+```{r}
+subway_tidy = 
+  pivot_longer(subway_df, route1:route11, names_to = "route_name", values_to = "route_number") %>% 
+  relocate(line, station_name, route_name, route_number)
+
+train_A = 
+  filter(subway_tidy, route_number =="A") %>% 
+  distinct(station_name)
+
+train_A_ada = 
+  filter(subway_tidy, route_number =="A") %>% 
+  filter(ada == "TRUE") %>% 
+  distinct(station_name)
+```
+
+There are **`r nrow(train_A)`** distinct stations serves the A train. Of the stations that serve the A train, **`r nrow(train_A_ada)`** are ADA compliant.
 
 
 
