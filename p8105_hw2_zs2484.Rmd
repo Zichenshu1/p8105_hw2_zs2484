@@ -85,7 +85,6 @@ subway_df =
   janitor::clean_names() %>% 
   select(line, station_name, route1:route11, station_latitude, station_longitude, entry, vending, entrance_type, ada) %>% 
   mutate(entry = recode(entry, "YES" = "TRUE", "NO" = "FALSE"), entry = as.logical(entry), route8 = as.character(route8), route9 = as.character(route9), route10 = as.character(route10), route11 = as.character(route11))
-
 ```
 
 The dataset contains these **`r names(subway_df)`** variables. It consists of **`r nrow(subway_df)`** rows and **`r ncol(subway_df)`** columns. Some of the cleaning steps I have done so far are converting all variable names to lower case and replace the space with underscore, select the required variables and change the "entry" variable to a logical variable.
@@ -98,7 +97,6 @@ ada_compliance = filter(distinct_station, ada == TRUE)
 
 entry = select(subway_df, entry)
 entry_novending = filter(entry, entry == FALSE)
-
 ```
 
 There are distinct **`r nrow(distinct_station)`** stations.
@@ -120,7 +118,6 @@ train_A_ada =
   distinct(subway_tidy, station_name, line, .keep_all = T) %>%  
   filter(route_number == "A") %>% 
   filter(ada == TRUE)
-  
 ```
 
 There are **`r nrow(train_A)`** distinct stations serves the A train. Of the stations that serve the A train, **`r nrow(train_A_ada)`** are ADA compliant.
@@ -164,6 +161,8 @@ pols_snp_df = left_join(pols_df, snp_df, by = c("year" = "year", "month" = "mont
 
 pols_snp_employment_df = left_join(pols_snp_df, unemployment_df, by = c("year" = "year", "month" = "month"))
 ```
+
+The pols-month.csv dataset contains **`r names(pols_df)`** variables. The snp.csv dataset contains **`r names(pols_df)`** variables.  The unemployment.csv dataset contains **`r names(unemployment_df)`** variables. The resulting dataset has **`r nrow(pols_snp_employment_df)`** rows and **`r ncol(pols_snp_employment_df)`** columns.  The range of year is **`r range(pull(pols_snp_employment_df, year), na.rm = TRUE)`**.  The final dataset is joined by the common keys variables: **year** and **month**.
 
 
 
