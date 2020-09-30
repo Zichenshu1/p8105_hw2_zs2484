@@ -162,7 +162,7 @@ pols_snp_df = left_join(pols_df, snp_df, by = c("year" = "year", "month" = "mont
 pols_snp_employment_df = left_join(pols_snp_df, unemployment_df, by = c("year" = "year", "month" = "month"))
 ```
 
-The pols-month.csv dataset contains **`r names(pols_df)`** variables. The snp.csv dataset contains **`r names(pols_df)`** variables.  The unemployment.csv dataset contains **`r names(unemployment_df)`** variables. The resulting dataset has **`r nrow(pols_snp_employment_df)`** rows and **`r ncol(pols_snp_employment_df)`** columns.  The range of year is **`r range(pull(pols_snp_employment_df, year), na.rm = TRUE)`**.  The final dataset is joined by the common keys variables: **year** and **month**.
+The pols-month.csv dataset contains **`r names(pols_df)`** variables. The snp.csv dataset contains **`r names(pols_df)`** variables.  The unemployment.csv dataset contains **`r names(unemployment_df)`** variables. The resulting dataset has **`r nrow(pols_snp_employment_df)`** rows and **`r ncol(pols_snp_employment_df)`** columnscx.  The range of year is **`r range(pull(pols_snp_employment_df, year), na.rm = TRUE)`**.  The final dataset is joined by the common keys variables: **year** and **month**.
 
 
 
